@@ -1,71 +1,8 @@
-class clase {
-    constructor(nombre, zona, categoria, edad, formato, turno, dia, valor, nivel){
-        this.nombre = nombre.toUpperCase()
-        this.zona = zona.toUpperCase()
-        this.categoria = categoria.toUpperCase()
-        this.edad = edad.toUpperCase()
-        this.formato = formato.toUpperCase()
-        this.turno = turno.toUpperCase()
-        this.dia = dia.toUpperCase()
-        this.valor = valor
-        this.nivel = nivel.toUpperCase()
+let clases = [];
 
-    }
-    
-}
-
-const clases = [];
-
-clases.push(new clase ("anthropos",        "norte", "comedia musical", "niños",        "puesta", "tarde",  "lunes",     8000, "todos"));
-clases.push(new clase ("anthropos",        "norte", "comedia musical", "adolescentes", "puesta", "tarde",  "miercoles", 8000, "todos"));
-clases.push(new clase ("anthropos",        "norte", "comedia musical", "jovenes",      "puesta", "noche",  "miercoles", 7000, "todos"));
-clases.push(new clase ("anthropos",        "norte", "comedia musical", "adultos",      "puesta", "noche",  "lunes",     7000, "todos"));
-clases.push(new clase ("amalgama",         "caba",  "comedia musical", "niños",        "puesta", "tarde",  "martes",    6000, "todos"));
-clases.push(new clase ("amalgama",         "caba",  "comedia musical", "adolescentes", "puesta", "tarde",  "jueves",    6000, "todos"));
-clases.push(new clase ("amalgama",         "caba",  "comedia musical", "jovenes",      "puesta", "noche",  "martes",    5000, "todos"));
-clases.push(new clase ("amalgama",         "caba",  "comedia musical", "adultos",      "puesta", "noche",  "jueves",    5000, "todos"));
-clases.push(new clase ("musical moments",  "norte", "comedia musical", "niños",        "puesta", "tarde",  "martes",    9000, "todos"));
-clases.push(new clase ("musical moments",  "norte", "comedia musical", "adolescentes", "puesta", "tarde",  "lunes",     9000, "todos"));
-clases.push(new clase ("musical moments",  "norte", "comedia musical", "jovenes",      "puesta", "noche",  "lunes",     8500, "todos"));
-clases.push(new clase ("musical moments",  "norte", "comedia musical", "aadultos",     "puesta", "noche",  "martes",    8500, "todos"));
-clases.push(new clase ("musical moments",  "norte", "comedia musical", "jovenes",      "puesta", "tarde",  "miercoles", 9000, "avanzado"));
-clases.push(new clase ("mahas",            "caba",  "improvisacion",   "jovenes",      "clases", "noche",  "lunes",     6500, "principiante"));
-clases.push(new clase ("mahas",            "caba",  "improvisacion",   "adultos",      "clases", "noche",  "lunes",     6500, "principiante"));
-clases.push(new clase ("mahas",            "caba",  "improvisacion",   "jovenes",      "clases", "mañana", "martes",    7000, "intermedio"));
-clases.push(new clase ("mahas",            "caba",  "improvisacion",   "adultos",      "clases", "mañana", "martes",    7000, "intermedio"));
-clases.push(new clase ("mahas",            "caba",  "improvisacion",   "adultos",      "clases", "noche",  "jueves",    7500, "avanzado"));
-clases.push(new clase ("mahas",            "caba",  "improvisacion",   "jovenes",      "clases", "tarde",  "jueves",    7500, "avanzado"));
-clases.push(new clase ("percipere",        "norte", "teatro",          "adultos",      "clases", "noche",  "jueves",    8500, "todos"));
-clases.push(new clase ("percipere",        "norte", "teatro",          "jovenes",      "clases", "noche",  "martes",    8500, "todos"));
-clases.push(new clase ("percipere",        "norte", "teatro",          "adolescentes", "clases", "tarde",  "jueves",    8500, "todos"));
-clases.push(new clase ("percipere",        "norte", "teatro",          "niños",        "clases", "mañana", "sabado",    8500, "todos"));
-clases.push(new clase ("kairos",           "sur",   "teatro",          "adultos",      "clases", "noche",  "jueves",    6500, "todos"));
-clases.push(new clase ("kairos",           "sur",   "teatro",          "jovenes",      "clases", "tarde",  "jueves",    6500, "todos"));
-clases.push(new clase ("kairos",           "sur",   "teatro",          "adolescentes", "clases", "mañana", "domingo",   7500, "todos"));
-clases.push(new clase ("kairos",           "sur",   "teatro",          "niños",        "clases", "mañana", "sabado",    7500, "todos"));
-clases.push(new clase ("revelio",          "sur",   "comedia musical", "niños",        "puesta", "tarde",  "lunes",     8000, "todos"));
-clases.push(new clase ("revelio",          "sur",   "comedia musical", "adolescentes", "puesta", "tarde",  "miercoles", 8000, "todos"));
-clases.push(new clase ("revelio",          "sur",   "comedia musical", "jovenes",      "puesta", "noche",  "miercoles", 7000, "todos"));
-clases.push(new clase ("revelio",          "sur",   "comedia musical", "adultos",      "puesta", "noche",  "lunes",     7000, "todos"));
-clases.push(new clase ("teatrap",          "sur",   "improvisacion",   "adolescentes", "clases", "noche",  "lunes",     5500, "principiante"));
-clases.push(new clase ("teatrap",          "sur",   "improvisacion",   "jovenes",      "clases", "mañana", "martes",    6000, "intermedio"));
-clases.push(new clase ("teatrap",          "sur",   "improvisacion",   "adolescentes", "clases", "mañana", "martes",    6000, "intermedio"));
-clases.push(new clase ("teatrap",          "sur",   "improvisacion",   "adultos",      "clases", "noche",  "jueves",    6500, "avanzado"));
-clases.push(new clase ("teatrap",          "sur",   "improvisacion",   "jovenes",      "clases", "tarde",  "jueves",    6500, "avanzado"));
-clases.push(new clase ("90-91",            "oeste", "teatro",          "adultos",      "puesta", "noche",  "jueves",    6000, "todos"));
-clases.push(new clase ("90-91",            "oeste", "teatro",          "jovenes",      "puesta", "tarde",  "jueves",    6000, "todos"));
-clases.push(new clase ("90-91",            "oeste", "teatro",          "adolescentes", "puesta", "mañana", "domingo",   7000, "todos"));
-clases.push(new clase ("90-91",            "oeste", "teatro",          "niños",        "puesta", "mañana", "sabado",    7000, "todos"));
-clases.push(new clase ("odisea",           "oeste", "comedia musical", "niños",        "puesta", "tarde",  "lunes",     6000, "todos"));
-clases.push(new clase ("odisea",           "oeste", "comedia musical", "adolescentes", "puesta", "tarde",  "lunes",     6000, "todos"));
-clases.push(new clase ("odisea",           "oeste", "comedia musical", "jovenes",      "puesta", "noche",  "lunes",     6500, "todos"));
-clases.push(new clase ("odisea",           "oeste", "comedia musical", "adultos",      "puesta", "noche",  "lunes",     6500, "todos"));
-clases.push(new clase ("moscu",            "oeste", "improvisacion",   "adolescentes", "clases", "tarde",  "sabado",    5500, "todos"));
-clases.push(new clase ("moscu",            "oeste", "improvisacion",   "jovenes",      "clases", "mañana", "domingo",   5000, "todos"));
-clases.push(new clase ("moscu",            "oeste", "improvisacion",   "adolescentes", "clases", "mañana", "sabado",    5000, "todos"));
-clases.push(new clase ("moscu",            "oeste", "improvisacion",   "adultos",      "clases", "noche",  "jueves",    5500, "todos"));
-clases.push(new clase ("moscu",            "oeste", "improvisacion",   "jovenes",      "clases", "tarde",  "jueves",    5500, "todos"));
-
+fetch("./assets/js/clases.json")
+    .then(rta => rta.json())
+    .then(datos => (clases = datos))
 
 let opcionesLugar = document.getElementById("lugar")
 const lugares = ["anthropos", "amalgama", "musical moments", "mahas", "percipere", "kairos", "revelio", "teatrap", "90-91", "odisea", "moscu"]
@@ -327,13 +264,7 @@ function filtrarClase() {
         .filter(filtrarValor)
         .filter(filtrarNivel);
     
-    if (resultado.length) {
-        infoClases(resultado)
-    }
-    
-    else {
-        noHayClases()
-    }
+    resultado.length ? infoClases(resultado) : noHayClases()
 }
 
 let botones = document.querySelectorAll(".opcion button");
