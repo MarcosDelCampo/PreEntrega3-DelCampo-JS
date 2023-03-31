@@ -1,11 +1,9 @@
-let clases = [];
-
-fetch("./assets/js/clases.json")
-    .then(rta => rta.json())
-    .then(datos => (clases = datos))
-
+    //-----------------------------------------METER EN FUNCION-------------------
 let opcionesLugar = document.getElementById("lugar")
 const lugares = ["anthropos", "amalgama", "musical moments", "mahas", "percipere", "kairos", "revelio", "teatrap", "90-91", "odisea", "moscu"]
+//PENSAR SI SE PUEDEN OBTENER LOS LUGARES DIRECTAMENTE DEL ARRAY COMPLETO
+//QUE ITERE LOS NOMBRES DE LOS LUGARES
+//SI EL NOMBRE.INNERTEXT YA EXISTE, QUE SALTEE
 
 for (const lugar of lugares){
     let btn = document.createElement("button");
@@ -94,6 +92,9 @@ for (const nivel of niveles){
     opcionesNivel.appendChild(btn);
 }
 
+    //-----------------------------------------HASTA ACA-------------------
+    //------------LLAMAR ESA FUNCION---------------
+
 function resetearResultados() {
     let resultados = document.querySelector("#contenedorResultados")
     while (resultados.firstChild) {
@@ -101,49 +102,27 @@ function resetearResultados() {
     }
 }
 
-function infoClases(clases) {
+function renderizarResultados(cursos) {
     resetearResultados()
 
-    for (const clase of clases) {
+    for (const curso of cursos) {
 
         let contenedor = document.createElement("div");
-        contenedor.innerHTML = `<h3> ${clase.nombre}</h3>
-                                <p> Zona: ${clase.zona}</p>
-                                <p> Categoría: ${clase.categoria}</p>
-                                <p> Edad: ${clase.edad}</p>
-                                <p> Formato: ${clase.formato}</p>
-                                <p> Turno: ${clase.turno}</p>
-                                <p> Día: ${clase.dia}</p>
-                                <p> Valor: ${clase.valor}</p>
-                                <p> Nivel: ${clase.nivel}</p>
+        contenedor.innerHTML = `<h3> ${curso.nombre}</h3>
+                                <p> Zona: ${curso.zona}</p>
+                                <p> Categoría: ${curso.categoria}</p>
+                                <p> Edad: ${curso.edad}</p>
+                                <p> Formato: ${curso.formato}</p>
+                                <p> Turno: ${curso.turno}</p>
+                                <p> Día: ${curso.dia}</p>
+                                <p> Valor: ${curso.valor}</p>
+                                <p> Nivel: ${curso.nivel}</p>
                                 `;
         contenedor.className = "cards";
         document.querySelector("#contenedorResultados").appendChild(contenedor);
     }
     
 }
-    function obtenerFiltroActual() {
-    const filtroComoString = localStorage.getItem("criterioFiltros")
-    return jsonMapa(filtroComoString)
-    }
-
-    function stringifyMapa(map) {
-        const string = JSON.stringify(Array.from(map))
-        return string
-    }
-    
-    function jsonMapa(json) {
-        const map = new Map(JSON.parse(json))
-        return map
-    }
-
-function crearFiltroEnLocalStorage() {
-    if (!localStorage.getItem("criterioFiltros")) {
-        resetearFiltros()
-    }
-}
-    
-crearFiltroEnLocalStorage()
 
 function resetearFiltros() {
     const filtroVacio = new Map()
@@ -159,113 +138,139 @@ function resetearFiltros() {
         filtroVacio.set("nivel", "")
 
         localStorage.setItem("criterioFiltros", stringifyMapa(filtroVacio))
-        }
-
-function resetearTodo() {
-    resetearFiltros()
-    resetearResultados()
 }
 
-function noHayClases(){
+function obtenerFiltroActual() {
+    return jsonMapa(localStorage.getItem("criterioFiltros"))
+    }
+
+function stringifyMapa(map) {
+    return JSON.stringify(Array.from(map))
+    }
+    
+function jsonMapa(json) {
+    return new Map(JSON.parse(json))
+    }
+
+function crearFiltroEnLocalStorage() {
+    if (!localStorage.getItem("criterioFiltros")) {
+        resetearFiltros()
+    }
+}
+
+
+function resetearFiltrosVisibles() {
+    let resultados = document.querySelector("#filtroVisible")
+        while (resultados.firstChild) {
+            resultados.removeChild(resultados.firstChild)
+        }
+}
+        
+
+function resetearTodo() {
+    resetearFiltros();
+    resetearResultados();
+    resetearFiltrosVisibles();
+    ocultarFiltrosActuales();
+}
+
+function noHayCursos(){
     resetearResultados()
     let resultados = document.querySelector("#contenedorResultados")
     resultados.innerText = "No hay resultados"
 }
 
-function filtrarNombre(clase) {
-    let filtroActual = obtenerFiltroActual()
-   if (filtroActual.get("nombre")) {
-       return clase.nombre == filtroActual.get("nombre")
-   }
-   return clase;
+function filtrarNombre(curso, filtroActual) {
+   return curso.nombre == filtroActual.get("nombre") || filtroActual.get("nombre") == ""
 }
 
-function filtrarZona(clase) {
-     let filtroActual = obtenerFiltroActual()
-    
-    if(filtroActual.get("zona")){
-        return clase.zona == filtroActual.get("zona")
-    }
-    return clase;
+function filtrarZona(curso, filtroActual) {
+   return curso.zona == filtroActual.get("zona") || filtroActual.get("zona") == ""
 }
 
-function filtrarCategoria(clase) {
-     let filtroActual = obtenerFiltroActual()
-    
-    if(filtroActual.get("categoria")){
-        return clase.categoria == filtroActual.get("categoria")
-    }
-    return clase;
+function filtrarCategoria(curso, filtroActual) {
+  return curso.categoria == filtroActual.get("categoria") || filtroActual.get("categoria") == ""
 }
 
-function filtrarEdad(clase) {
-     let filtroActual = obtenerFiltroActual()
-    
-    if(filtroActual.get("edad")){
-        return clase.edad == filtroActual.get("edad")
-    }
-    return clase;
+function filtrarEdad(curso, filtroActual) {
+   return curso.edad == filtroActual.get("edad") || filtroActual.get("edad") == ""
 }
 
-function filtrarFormato(clase) {
-     let filtroActual = obtenerFiltroActual()
-    
-    if(filtroActual.get("formato")){
-        return clase.formato == filtroActual.get("formato")
-    }
-    return clase;
+function filtrarFormato(curso, filtroActual) {
+    return curso.formato == filtroActual.get("formato") || filtroActual.get("formato") == ""
 }
 
-function filtrarTurno(clase) {
-     let filtroActual = obtenerFiltroActual()
-    
-    if(filtroActual.get("turno")){
-        return clase.turno  == filtroActual.get("turno")
-    }
-    return clase;
-}
-function filtrarDia(clase) {
-     let filtroActual = obtenerFiltroActual()
-    
-    if(filtroActual.get("dia")){
-        return clase.dia  == filtroActual.get("dia")
-    }
-    return clase;
+function filtrarTurno(curso, filtroActual) {
+    return curso.turno == filtroActual.get("turno") || filtroActual.get("turno") == ""
 }
 
-function filtrarValor(clase) {
-    let filtroActual = obtenerFiltroActual()
-
-    if(filtroActual.get("valor")){
-        return clase.valor == filtroActual.get("valor")
-    }
-    return clase;
+function filtrarDia(curso, filtroActual) {
+    return curso.dia  == filtroActual.get("dia") || filtroActual.get("dia") == ""
 }
 
-function filtrarNivel(clase) {
-         let filtroActual = obtenerFiltroActual()
+function filtrarValor(curso, filtroActual) {
+    return curso.valor == filtroActual.get("valor") || filtroActual.get("valor") == ""
+}
 
-    if(filtroActual.get("nivel")){
-        return clase.nivel == filtroActual.get("nivel")
-    }
-    return clase;
+function filtrarNivel(curso, filtroActual) {
+    return curso.nivel == filtroActual.get("nivel") || filtroActual.get("nivel") == ""
 }    
 
 
-function filtrarClase() {
-    let resultado = clases
-        .filter(filtrarNombre)
-        .filter(filtrarZona)
-        .filter(filtrarCategoria)
-        .filter(filtrarEdad)
-        .filter(filtrarFormato)
-        .filter(filtrarTurno)
-        .filter(filtrarDia)
-        .filter(filtrarValor)
-        .filter(filtrarNivel);
+function filtrarCurso() {
+    let filtroActual = obtenerFiltroActual()
     
-    resultado.length ? infoClases(resultado) : noHayClases()
+    let resultado = cursos
+        .filter(curso => filtrarNombre(curso, filtroActual))
+        .filter(curso => filtrarZona(curso, filtroActual))
+        .filter(curso => filtrarCategoria(curso, filtroActual))
+        .filter(curso => filtrarEdad(curso, filtroActual))
+        .filter(curso => filtrarFormato(curso, filtroActual))
+        .filter(curso => filtrarTurno(curso, filtroActual))
+        .filter(curso => filtrarDia(curso, filtroActual))
+        .filter(curso => filtrarValor(curso, filtroActual))
+        .filter(curso => filtrarNivel(curso, filtroActual));
+    
+    resultado.length ? renderizarResultados(resultado) : noHayCursos()
 }
+
+function mostrarFiltrosActuales() {
+    let section = document.querySelector("#tagFiltros")
+    section.className = "contenedorFiltrosActuales"
+}
+
+function ocultarFiltrosActuales() {
+    let section = document.querySelector("#tagFiltros")
+    section.className = "contenedorFiltrosActuales hidden"
+}
+
+
+function renderizarFiltrosActuales(filtrosActuales) {
+    resetearFiltrosVisibles();
+
+    let filtrosNoVacios =
+        Array.from(filtrosActuales)
+        .filter(([_key, value]) => value != "")
+
+    if (filtrosNoVacios.length) {
+        filtrosNoVacios.forEach(([clave, valor]) => {
+            let valorFiltrado = document.createElement("li");
+
+            valorFiltrado.innerHTML = clave.toUpperCase() + ": " + valor;
+            document.querySelector("#filtroVisible").appendChild(valorFiltrado);
+        })
+        mostrarFiltrosActuales()
+    } else {
+        ocultarFiltrosActuales() 
+    }
+}
+
+//Pensar como hacer para que el contenedor de filtros aplicados aparezca solamente si hay alguno seleccionado
+//DEBERIA APARECER IGUAL QUE EN EL LOCAL STORAGE, salvo que esten todos los campos vacíos. 
+
+//obtener el string de Local Storage
+//Parsearlo 
+//Si criterioFiltros.nombre != "", entonces que aparezca
 
 let botones = document.querySelectorAll(".opcion button");
 botones.forEach((item) => {
@@ -273,54 +278,58 @@ botones.forEach((item) => {
         let criterioDeFiltrosActuales = obtenerFiltroActual()
 
         if (item.className == "btnLugar"){
-       
-            criterioDeFiltrosActuales.set("nombre", item.innerText)
-
+            criterioDeFiltrosActuales.set("nombre", item.innerText);
         }
         else if(item.className == "btnZona"){
-       
             criterioDeFiltrosActuales.set("zona", item.innerText)
-
         }
         else if(item.className == "btnCategoria"){
-       
             criterioDeFiltrosActuales.set("categoria", item.innerText)
-
-        }        
+        }    
         else if(item.className == "btnEdad"){
-       
             criterioDeFiltrosActuales.set("edad", item.innerText)
-
-        }
+        } 
         else if(item.className == "btnFormato"){
-       
             criterioDeFiltrosActuales.set("formato", item.innerText)
-
-        }
+        } 
         else if(item.className == "btnTurno"){
-       
             criterioDeFiltrosActuales.set("turno", item.innerText)
-
-        }
+        } 
         else if(item.className == "btnDia"){
-       
             criterioDeFiltrosActuales.set("dia", item.innerText)
-
-        }
+        } 
         else if(item.className == "btnValor"){
-       
             criterioDeFiltrosActuales.set("valor", item.innerText)
-
-        }
+        } 
         else if(item.className == "btnNivel"){
-       
             criterioDeFiltrosActuales.set("nivel", item.innerText)
+        } 
 
-        }
-        
         localStorage.setItem("criterioFiltros", stringifyMapa(criterioDeFiltrosActuales))
-    }
-    item.addEventListener('click', clickBoton)
-    item.addEventListener('click', filtrarClase)
 
-});
+        renderizarFiltrosActuales(criterioDeFiltrosActuales)
+    };
+    item.addEventListener('click', clickBoton);
+    item.addEventListener('click', filtrarCurso);
+
+})
+
+let cursos = [];
+
+function iniciarApp() {
+    crearFiltroEnLocalStorage()
+    renderizarFiltrosActuales(obtenerFiltroActual())
+    
+
+    fetch("./assets/js/cursos.json")
+        .then(rta => rta.json())
+        .then(datos => (
+            cursos = datos
+            
+        ))
+        .then(_ => filtrarCurso())
+    
+    // popular las opciones de filtros
+}
+
+iniciarApp()

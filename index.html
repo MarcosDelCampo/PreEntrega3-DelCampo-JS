@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./assets/css/style.css">
-    <title>Document</title>
+    <title>ENTRENARTE</title>
 </head>
 <body>
     <header class="header">
@@ -51,16 +51,16 @@
             <ul id="nivel"></ul>
         </div>
     </section>
-
-    <button id="btnResetearTodo" onclick="resetearTodo()">BORRAR FILTROS</button>
-    
+    <div id="tagFiltros" class="contenedorFiltrosActuales hidden">
+        <h3>FILTROS ACTUALES</h3>
+        <ul id="filtroVisible" class="elecciones">
+        </ul>
+        <button id="btnResetearTodo" onclick="resetearTodo()">BORRAR FILTROS</button>
+    </div>
     <section class="respuestas">
         <h2>RESPUESTAS</h2>
         <div id="contenedorResultados"></div>
-
     </section>
-    
-    
     <script src="assets/js/main.js"></script>
 </body>
 </html>
