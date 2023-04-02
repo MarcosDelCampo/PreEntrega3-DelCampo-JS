@@ -2,7 +2,7 @@
     margin: 0;
     box-sizing: border-box;
     background-color: rgb(30, 30, 30);
-    color: white;}
+    color: white; }
     
     body{
         display: flex;
@@ -140,11 +140,27 @@
 
         border: none;
     }
+
+    .contenedorFiltrosActuales{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .contenedorFiltrosActuales li {
+        background-color: white;
+        border-radius: 3px;
+        color: black;
+        text-align: center;
+        padding: 2px;
+    }
     
     #btnResetearTodo{
-        background-color: rgb(255, 33, 33);
-        color: white;
-        height: auto;
+        background-color: rgb(180, 30, 0);
+        color: rgb(255, 177, 177);
+        text-decoration: solid;
+        width: 99%;
         padding: 10px 5px;
         border-radius: 3px;
         font-size: medium;
@@ -165,8 +181,35 @@
         align-items: center;
         justify-content: space-between;
     }
+    .elecciones {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        list-style: none;
+    }
+
+    .elecciones > li  {
+        text-decoration: none;
+        text-decoration-style: none;
+        margin: 3px;
+        padding: 3px;
+    }
 
     .hidden {
         display: none;
     }
 
+
+    .swal2-x-mark{
+
+        background-color: transparent !important;
+    }
+
+    .swal2-title, .swal2-icon, #swal2-html-container, .swal2-actions {
+
+        background-color: white !important;
+    }
+
+
+    

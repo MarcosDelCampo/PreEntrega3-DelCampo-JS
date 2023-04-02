@@ -1,9 +1,5 @@
-    //-----------------------------------------METER EN FUNCION-------------------
 let opcionesLugar = document.getElementById("lugar")
 const lugares = ["anthropos", "amalgama", "musical moments", "mahas", "percipere", "kairos", "revelio", "teatrap", "90-91", "odisea", "moscu"]
-//PENSAR SI SE PUEDEN OBTENER LOS LUGARES DIRECTAMENTE DEL ARRAY COMPLETO
-//QUE ITERE LOS NOMBRES DE LOS LUGARES
-//SI EL NOMBRE.INNERTEXT YA EXISTE, QUE SALTEE
 
 for (const lugar of lugares){
     let btn = document.createElement("button");
@@ -92,9 +88,6 @@ for (const nivel of niveles){
     opcionesNivel.appendChild(btn);
 }
 
-    //-----------------------------------------HASTA ACA-------------------
-    //------------LLAMAR ESA FUNCION---------------
-
 function resetearResultados() {
     let resultados = document.querySelector("#contenedorResultados")
     while (resultados.firstChild) {
@@ -158,14 +151,12 @@ function crearFiltroEnLocalStorage() {
     }
 }
 
-
 function resetearFiltrosVisibles() {
     let resultados = document.querySelector("#filtroVisible")
         while (resultados.firstChild) {
             resultados.removeChild(resultados.firstChild)
         }
-}
-        
+}      
 
 function resetearTodo() {
     resetearFiltros();
@@ -178,6 +169,18 @@ function noHayCursos(){
     resetearResultados()
     let resultados = document.querySelector("#contenedorResultados")
     resultados.innerText = "No hay resultados"
+    Swal.fire({
+        title: 'LO SENTIMOS!',
+        text: 'No hay resultados para su búsqueda',
+        icon: 'error',
+        confirmButtonText: 'Resetear filtros',
+        showCancelButton: true,
+        cancelButtonText:'Volver'
+      }).then((rta)=>{
+
+        if (rta.isConfirmed){ 
+                    resetearTodo()}
+      })
 }
 
 function filtrarNombre(curso, filtroActual) {
@@ -216,7 +219,6 @@ function filtrarNivel(curso, filtroActual) {
     return curso.nivel == filtroActual.get("nivel") || filtroActual.get("nivel") == ""
 }    
 
-
 function filtrarCurso() {
     let filtroActual = obtenerFiltroActual()
     
@@ -244,7 +246,6 @@ function ocultarFiltrosActuales() {
     section.className = "contenedorFiltrosActuales hidden"
 }
 
-
 function renderizarFiltrosActuales(filtrosActuales) {
     resetearFiltrosVisibles();
 
@@ -264,13 +265,6 @@ function renderizarFiltrosActuales(filtrosActuales) {
         ocultarFiltrosActuales() 
     }
 }
-
-//Pensar como hacer para que el contenedor de filtros aplicados aparezca solamente si hay alguno seleccionado
-//DEBERIA APARECER IGUAL QUE EN EL LOCAL STORAGE, salvo que esten todos los campos vacíos. 
-
-//obtener el string de Local Storage
-//Parsearlo 
-//Si criterioFiltros.nombre != "", entonces que aparezca
 
 let botones = document.querySelectorAll(".opcion button");
 botones.forEach((item) => {
@@ -308,6 +302,17 @@ botones.forEach((item) => {
         localStorage.setItem("criterioFiltros", stringifyMapa(criterioDeFiltrosActuales))
 
         renderizarFiltrosActuales(criterioDeFiltrosActuales)
+        Toastify({
+            text: "FILTRO AGREGADO. Resultados al final de la página",
+            duration: 1500,
+            close: false,
+            gravity: "bottom",
+            position: "right",
+            stopOnFocus: true,
+            style: {
+              background: "rgb(180, 130, 30)",
+            },
+          }).showToast();
     };
     item.addEventListener('click', clickBoton);
     item.addEventListener('click', filtrarCurso);
@@ -315,6 +320,14 @@ botones.forEach((item) => {
 })
 
 let cursos = [];
+
+function esconderOpciones() {
+    let opcionesHidden = document.querySelector(".opciones");
+    opcionesHidden.className = "hidden";
+    let respuestasHidden = document.querySelector(".respuestas");
+    respuestasHidden.className = "hidden";
+
+}
 
 function iniciarApp() {
     crearFiltroEnLocalStorage()
@@ -325,11 +338,14 @@ function iniciarApp() {
         .then(rta => rta.json())
         .then(datos => (
             cursos = datos
-            
         ))
         .then(_ => filtrarCurso())
-    
-    // popular las opciones de filtros
+        .catch(rta => Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'No se han podido cargar los cursos. Inténtelo más tarde.',
+          }) && esconderOpciones()
+          )
 }
 
 iniciarApp()
